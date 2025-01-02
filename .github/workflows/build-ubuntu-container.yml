@@ -99,6 +99,7 @@ jobs:
           image_export_url=$(curl -k https://localhost:8443/1.0/images | jq -r '"https://localhost:8443" + .metadata[0]')
           curl -k "https://localhost:8443/1.0/images?recursion=1" | jq '.metadata[0]' > metadata.json
           echo $image_export_url
-          curl -Lk $image_export_url > image.tar.gz
+          curl -Lk $image_export_url/export > image.tar.gz
 
-          oras push --config metadata.json ghcr.io/capincus/k8s-images:${{ matrix.base }}-${{ matrix.kubernetes }} image.tar.gz
+          BASE=${{ matrix.base }}
+          oras push --config metadata.json "ghcr.io/capincus/k8s-images:${BASE//\//-}-${{ matrix.kubernetes }}"" image.tar.gz
