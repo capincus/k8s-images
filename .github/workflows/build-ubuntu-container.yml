@@ -102,4 +102,5 @@ jobs:
           curl -Lk $image_export_url/export > image.tar.gz
 
           BASE=${{ matrix.base }}
-          oras push --annotation-file metadata.json "ghcr.io/capincus/k8s-images:${BASE//\//-}-${{ matrix.kubernetes }}" image.tar.gz
+          cat metadata.json | jq 'tojson | {"$manifest": .}' > annotations.json
+          oras push --annotation-file annotations.json "ghcr.io/capincus/k8s-images:${BASE//\//-}-${{ matrix.kubernetes }}" image.tar.gz
