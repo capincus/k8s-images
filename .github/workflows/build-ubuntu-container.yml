@@ -97,7 +97,7 @@ jobs:
 
       - run: |
           image_export_url=$(curl -k https://localhost:8443/1.0/images | jq -r '"https://localhost:8443" + .metadata[0]')
-          curl -k "https://localhost:8443/1.0/images?recursion=1" | jq '.metadata[0]' > metadata.json
+          curl -k "https://localhost:8443/1.0/images?recursion=1" | tee /dev/stderr | jq '.metadata[0]' > metadata.json
           echo $image_export_url
           curl -Lk $image_export_url/export > image.tar.gz
 
