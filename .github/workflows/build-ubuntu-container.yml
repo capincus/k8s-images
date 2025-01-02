@@ -82,3 +82,5 @@ jobs:
           incus exec ${INSTANCE_NAME} -- cloud-init clean --logs
           incus exec ${INSTANCE_NAME} -- rm /root/.bash_history || true
           incus stop ${INSTANCE_NAME}
+
+          incus publish ${INSTANCE_NAME} --alias ${BASE}-${KUBERNETES} --public
