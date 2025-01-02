@@ -1,5 +1,5 @@
 #! /bin/bash
-set -eu
+set -eux
 
 k8s_version="${1}"
 
@@ -39,6 +39,7 @@ curl -Lo /tmp/crictl.tar.gz https://github.com/kubernetes-sigs/cri-tools/release
 sudo tar zxvf /tmp/crictl.tar.gz -C /usr/local/bin
 rm -f /tmp/crictl.tar.gz
 # install kubeadm, kubelet, kubectl
+mkdir -p /run/cluster-api
 echo "$k8s_version" > /run/cluster-api/k8s-version
 cat /run/cluster-api/k8s-version | yq -r 'match("v([0-9]+).([0-9]+).([0-9]+)") | .captures | "v" + .[0].string + "." + .[1].string' > /run/cluster-api/k8s-major-minor-version
 curl -fsSL https://pkgs.k8s.io/core:/stable:/$(cat /run/cluster-api/k8s-major-minor-version)/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
