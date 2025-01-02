@@ -81,3 +81,4 @@ jobs:
           incus exec ${INSTANCE_NAME} -- bash -c "rm -r /tmp/*"
           incus exec ${INSTANCE_NAME} -- cloud-init clean --logs
           incus exec ${INSTANCE_NAME} -- rm /root/.bash_history || true
+          incus stop ${INSTANCE_NAME}
