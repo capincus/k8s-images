@@ -84,3 +84,6 @@ jobs:
           incus stop ${INSTANCE_NAME}
 
           incus publish ${INSTANCE_NAME} --alias ${BASE}-${KUBERNETES} --public
+
+          curl https://localhost:8443/1.0/images | jq
+          curl "https://localhost:8443/1.0/images?recursive=1" | jq
