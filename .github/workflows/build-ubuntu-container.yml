@@ -75,8 +75,8 @@ jobs:
 
           FILE_NAME="./config${BASE//\//_}.sh"
           incus file push "$FILE_NAME" ${INSTANCE_NAME}//tmp/config.sh
-          incus exec ${INSTANCE_NAME} bash /tmp/config.sh ${{ matrix.kubernetes }}
-          incus exec ${INSTANCE_NAME} rm /tmp/config.sh
+          incus exec ${INSTANCE_NAME} -- bash /tmp/config.sh ${{ matrix.kubernetes }}
+          incus exec ${INSTANCE_NAME} -- rm /tmp/config.sh
           incus exec ${INSTANCE_NAME} -- bash -c "rm /etc/ssh/ssh_host_*"
           incus exec ${INSTANCE_NAME} -- rm -r /tmp/*
           incus exec ${INSTANCE_NAME} -- cloud-init clean --logs
