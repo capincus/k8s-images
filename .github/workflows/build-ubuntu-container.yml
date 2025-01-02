@@ -69,7 +69,8 @@ jobs:
 
       - run: |
           BASE=${{ matrix.base }}
-          INSTANCE_NAME="${BASE//\//-}-${{ matrix.kubernetes }}"
+          KUBERNETES=${{ matrix.kubernetes }}
+          INSTANCE_NAME="${BASE//\//-}-${KUBERNETES//\./-}"
           incus launch images:${{ matrix.base }} ${INSTANCE_NAME}
 
           FILE_NAME="./config${BASE//\//_}.sh"
