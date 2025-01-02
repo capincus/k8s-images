@@ -78,6 +78,6 @@ jobs:
           incus exec ${INSTANCE_NAME} -- bash /tmp/config.sh ${{ matrix.kubernetes }}
           incus exec ${INSTANCE_NAME} -- rm /tmp/config.sh || true
           incus exec ${INSTANCE_NAME} -- bash -c "rm /etc/ssh/ssh_host_*"
-          incus exec ${INSTANCE_NAME} -- rm -r /tmp/*
+          incus exec ${INSTANCE_NAME} -- bash -c "rm -r /tmp/*"
           incus exec ${INSTANCE_NAME} -- cloud-init clean --logs
           incus exec ${INSTANCE_NAME} -- rm /root/.bash_history
